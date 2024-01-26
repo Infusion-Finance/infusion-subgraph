@@ -1,0 +1,25 @@
+{
+  "name": "infusion-subgraph",
+  "version": "1.0.0",
+  "repository": "https://github.com/Infusion-Finance/infusion-subgraph",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "codegen": "graph codegen --output-dir src/types/",
+    "build": "graph build",
+    "create-local": "graph create infusiondev7/infusion-goerli-subgraph --node http://127.0.0.1:8020",
+    "deploy-local": "graph deploy infusiondev7/infusion-goerli-subgraph --ipfs http://127.0.0.1:5001 --node http://127.0.0.1:8020",
+    "deploy": "graph deploy --product hosted-service infusiondev7/infusion-goerli-subgraph",
+    "deploy-staging": "graph deploy $THE_GRAPH_GITHUB_USER/$THE_GRAPH_SUBGRAPH_NAME /Uniswap --ipfs https://api.staging.thegraph.com/ipfs/ --node https://api.staging.thegraph.com/deploy/",
+    "watch-local": "graph deploy graphprotocol/Uniswap2 --watch --debug --node http://127.0.0.1:8020/ --ipfs http://localhost:5001"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.64.1",
+    "@graphprotocol/graph-ts": "^0.32.0",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
+  }
+}
