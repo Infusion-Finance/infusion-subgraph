@@ -3,12 +3,12 @@ import { log, BigInt, BigDecimal, Address, ethereum } from '@graphprotocol/graph
 import { ERC20 } from '../types/Factory/ERC20'
 import { ERC20SymbolBytes } from '../types/Factory/ERC20SymbolBytes'
 import { ERC20NameBytes } from '../types/Factory/ERC20NameBytes'
-import { User, Bundle, Token, LiquidityPosition, LiquidityPositionSnapshot, Pair } from '../types/schema'
+import { User, Bundle, Token, LiquidityPosition, LiquidityPositionSnapshot, Pair, UserLockBalance } from '../types/schema'
 import { Factory as FactoryContract } from '../types/templates/Pair/Factory'
 import { TokenDefinition } from './tokenDefinition'
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
-export const FACTORY_ADDRESS = '0x088096Ef783540795c5F4dB06aD3A7dc580Ff776'
+export const FACTORY_ADDRESS = '0xD02e761CaC86F4b693116F4d191460011e8CAC4F'
 
 export let ZERO_BI = BigInt.fromI32(0)
 export let ONE_BI = BigInt.fromI32(1)
@@ -159,6 +159,23 @@ export function createLiquidityPosition(exchange: Address, user: Address): Liqui
   }
   if (liquidityTokenBalance === null) log.error('LiquidityTokenBalance is null', [id])
   return liquidityTokenBalance as LiquidityPosition
+}
+
+export function createLiquidityLock(exchange: Address, user: Address): UserLockBalance {
+  let id = exchange
+    .toHexString()
+    .concat('-')
+    .concat(user.toHexString())
+  let userLockBalance = UserLockBalance.load(id)
+  if (userLockBalance === null) {
+    userLockBalance = new UserLockBalance(id)
+    userLockBalance.balance = ZERO_BD
+    userLockBalance.pair = exchange.toHexString()
+    userLockBalance.user = user.toHexString()
+    userLockBalance.save()
+  }
+  if (userLockBalance === null) log.error('UserLockBalance is null', [id])
+  return userLockBalance as UserLockBalance
 }
 
 export function createUser(address: Address): void {

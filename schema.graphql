@@ -96,12 +96,18 @@ type Pair @entity {
   mints: [Mint!]! @derivedFrom(field: "pair")
   burns: [Burn!]! @derivedFrom(field: "pair")
   swaps: [Swap!]! @derivedFrom(field: "pair")
+
+  # Locks
+  tokenLocker: String!
+  feeDistributor: String!
+  lockerFeesP: BigDecimal!
 }
 
 type User @entity {
   id: ID!
   liquidityPositions: [LiquidityPosition!] @derivedFrom(field: "user")
   usdSwapped: BigDecimal!
+  userLocks: [UserLockBalance!] @derivedFrom(field: "user")
 }
 
 type LiquidityPosition @entity {
@@ -126,6 +132,16 @@ type LiquidityPositionSnapshot @entity {
   reserveUSD: BigDecimal! # snapshot of pair reserves in USD
   liquidityTokenTotalSupply: BigDecimal! # snapshot of pool token supply
   liquidityTokenBalance: BigDecimal! # snapshot of users pool token balance
+}
+
+# current user total locked balance at pair token locker.
+type UserLockBalance @entity {
+  id: ID!
+  pair: String!
+  user: User!
+  balance: BigDecimal!
+  lastBlockUpdate: BigInt!
+  lastTimestampUpdate: BigInt!
 }
 
 type Transaction @entity {

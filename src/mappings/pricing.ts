@@ -3,9 +3,9 @@ import { Pair, Token, Bundle } from '../types/schema'
 import { BigDecimal, Address, BigInt } from '@graphprotocol/graph-ts/index'
 import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from './helpers'
 
-const WETH_ADDRESS = '0xF0372016fd3708898dc600bcC0e6b7350Ba17864'
-const USDC_WETH_PAIR = '0x7181540aCCB60510E95934c55B2187a23c1679E6' // created 10008355
-const USDC_WETH_PAIR_VOLATILE = '0x7F1Ae0b7585F74Ec1fEbF93635b318E4Ff0c7601' // created 10008355
+const WETH_ADDRESS = '0xbEBA8Db9af905e96132FF410Bb9dC1647412f0ce'
+const USDC_WETH_PAIR = '0xE5785876C34bf6575c90Eb75f58234Ba44ecf943' // created 10008355
+const USDC_WETH_PAIR_VOLATILE = '0xC59809d94B7E24F1053C9460cEd746e500921F5b' // created 10008355
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
@@ -25,9 +25,9 @@ export function getEthPriceInUSD(): BigDecimal {
 
 // token where amounts should contribute to tracked volume and liquidity
 let WHITELIST: string[] = [
-  '0xF0372016fd3708898dc600bcC0e6b7350Ba17864', // WETH
-  '0x31d57a8a4BC4031E6fcE28Bf658Ade7679b4d798', // USDC
-  '0x4200000000000000000000000000000000000006', // ETH
+  '0xbEBA8Db9af905e96132FF410Bb9dC1647412f0ce', // WETH
+  '0xb5A0c827E9d840CE49C426Da839685727B374590', // USDC
+  '0x0000000000000000000000000000000000000000', // ETH
   // '0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f', //SNX
   // '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599' // WBTC
 ]

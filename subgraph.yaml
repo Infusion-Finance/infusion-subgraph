@@ -1,6 +1,6 @@
-specVersion: 0.0.4
-description: Uniswap is a decentralized protocol for automated token exchange on Ethereum.
-repository: https://github.com/Uniswap/uniswap-v2-subgraph
+specVersion: 0.0.5
+description: Infusion is a deep liquidity DeFi protocol.
+repository: https://github.com/Infusion-Finance/infusion-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
@@ -8,9 +8,9 @@ dataSources:
     name: Factory
     network: base-testnet
     source:
-      address: '0x088096Ef783540795c5F4dB06aD3A7dc580Ff776'
+      address: '0xD02e761CaC86F4b693116F4d191460011e8CAC4F'
       abi: Factory
-      startBlock: 14553832
+      startBlock: 16289997
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -31,6 +31,26 @@ dataSources:
       eventHandlers:
         - event: PairCreated(indexed address,indexed address,bool,address,uint256)
           handler: handleNewPair
+  - kind: ethereum/contract
+    name: LockFactory
+    network: base-testnet
+    source:
+      address: '0x63B2deA674a2a2177ED534af5541e248162BE4dc'
+      abi: LockFactory
+      startBlock: 16289997
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/mappings/lockFactory.ts
+      entities:
+        - Pair
+      abis:
+        - name: LockFactory
+          file: ./abis/lockFactory.json
+      eventHandlers:
+        - event: LockCreated(indexed address,indexed address,indexed address,uint256)
+          handler: handlePairLockCreated
 templates:
   - kind: ethereum/contract
     name: Pair
@@ -50,6 +70,8 @@ templates:
           file: ./abis/pair.json
         - name: Factory
           file: ./abis/factory.json
+        - name: TokenLocker
+          file: ./abis/tokenLocker.json
       eventHandlers:
         - event: Mint(indexed address,uint256,uint256)
           handler: handleMint

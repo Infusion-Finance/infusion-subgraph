@@ -4,6 +4,7 @@ import { PairCreated } from '../types/Factory/Factory'
 import { Bundle, Pair, Token, Factory } from '../types/schema'
 import { Pair as PairTemplate } from '../types/templates'
 import {
+  ADDRESS_ZERO,
   FACTORY_ADDRESS,
   fetchTokenDecimals,
   fetchTokenName,
@@ -84,29 +85,39 @@ export function handleNewPair(event: PairCreated): void {
     token1.txCount = ZERO_BI
   }
 
-  let pair = new Pair(event.params.pair.toHexString()) as Pair
-  pair.token0 = token0.id
-  pair.token1 = token1.id
-  pair.liquidityProviderCount = ZERO_BI
-  pair.createdAtTimestamp = event.block.timestamp
-  pair.createdAtBlockNumber = event.block.number
-  pair.isStable = event.params.stable
-  pair.txCount = ZERO_BI
-  pair.reserve0 = ZERO_BD
-  pair.reserve1 = ZERO_BD
-  pair.trackedReserveETH = ZERO_BD
-  pair.reserveETH = ZERO_BD
-  pair.reserveUSD = ZERO_BD
-  pair.totalSupply = ZERO_BD
-  pair.volumeToken0 = ZERO_BD
-  pair.volumeToken1 = ZERO_BD
-  pair.volumeUSD = ZERO_BD
-  pair.untrackedVolumeUSD = ZERO_BD
-  pair.token0Price = ZERO_BD
-  pair.token1Price = ZERO_BD
-
-  // create the tracked contract based on the template
-  PairTemplate.create(event.params.pair)
+  let pair = Pair.load(event.params.pair.toHexString());
+  if (pair === null) {
+    pair = new Pair(event.params.pair.toHexString()) as Pair
+    pair.token0 = token0.id
+    pair.token1 = token1.id
+    pair.liquidityProviderCount = ZERO_BI
+    pair.createdAtTimestamp = event.block.timestamp
+    pair.createdAtBlockNumber = event.block.number
+    pair.isStable = event.params.stable
+    pair.txCount = ZERO_BI
+    pair.reserve0 = ZERO_BD
+    pair.reserve1 = ZERO_BD
+    pair.trackedReserveETH = ZERO_BD
+    pair.reserveETH = ZERO_BD
+    pair.reserveUSD = ZERO_BD
+    pair.totalSupply = ZERO_BD
+    pair.volumeToken0 = ZERO_BD
+    pair.volumeToken1 = ZERO_BD
+    pair.volumeUSD = ZERO_BD
+    pair.untrackedVolumeUSD = ZERO_BD
+    pair.token0Price = ZERO_BD
+    pair.token1Price = ZERO_BD
+    pair.tokenLocker = ADDRESS_ZERO
+    pair.feeDistributor = ADDRESS_ZERO
+    pair.lockerFeesP = ZERO_BD
+    PairTemplate.create(event.params.pair);
+  } else {
+    pair.token0 = token0.id
+    pair.token1 = token1.id
+    pair.createdAtTimestamp = event.block.timestamp
+    pair.createdAtBlockNumber = event.block.number
+    pair.isStable = event.params.stable
+  }
 
   // save updated values
   token0.save()
