@@ -199,14 +199,14 @@ export function handleTransfer(event: Transfer): void {
     transaction.save()
   }
 
-  if (from.toHexString() != ADDRESS_ZERO && from.toHexString() != pair!.id) {
+  if (from.toHexString() !== ADDRESS_ZERO && from.toHexString() != pair!.id) {
     let fromUserLiquidityPosition = createLiquidityPosition(event.address, from)
     fromUserLiquidityPosition.liquidityTokenBalance = convertTokenToDecimal(pairContract.balanceOf(from), BI_18)
     fromUserLiquidityPosition.save()
     createLiquiditySnapshot(fromUserLiquidityPosition, event)
   }
 
-  if (from.toHexString() != ADDRESS_ZERO && from.toHexString() != pair!.id) {
+  if (from.toHexString() !== ADDRESS_ZERO && from.toHexString() != pair!.id) {
     let fromUserLiquidityPosition = createLiquidityPosition(event.address, from)
     fromUserLiquidityPosition.liquidityTokenBalance = convertTokenToDecimal(pairContract.balanceOf(from), BI_18)
     fromUserLiquidityPosition.save()
@@ -220,31 +220,25 @@ export function handleTransfer(event: Transfer): void {
     createLiquiditySnapshot(toUserLiquidityPosition, event)
   }
 
-  if (pair!.tokenLocker != ADDRESS_ZERO && from.toHexString() === pair!.tokenLocker) {
-    let tokenLocker = TokenLocker.bind(Address.fromHexString(pair!.tokenLocker) as Address)
+  if (pair!.tokenLocker !== ADDRESS_ZERO && from.toHexString() == pair!.tokenLocker.toString()) {
+    const tokenLockerAddress = Address.fromString(pair!.tokenLocker);
+    let tokenLocker = TokenLocker.bind(tokenLockerAddress)
     let lockerLockBalance = createLiquidityLock(event.address, from)
     lockerLockBalance.balance = convertTokenToDecimal(pairContract.balanceOf(from), BI_18)
-    lockerLockBalance.lastBlockUpdate = event.block.number
-    lockerLockBalance.lastTimestampUpdate = event.block.timestamp
     lockerLockBalance.save()
     let userLockBalance = createLiquidityLock(event.address, to)
     userLockBalance.balance = convertTokenToDecimal(tokenLocker.userBalance(to), BI_18)
-    userLockBalance.lastBlockUpdate = event.block.number
-    userLockBalance.lastTimestampUpdate = event.block.timestamp
     userLockBalance.save()
   }
 
-  if (pair!.tokenLocker != ADDRESS_ZERO && to.toHexString() === pair!.tokenLocker) {
-    let tokenLocker = TokenLocker.bind(Address.fromHexString(pair!.tokenLocker) as Address)
+  if (pair!.tokenLocker !== ADDRESS_ZERO && to.toHexString() == pair!.tokenLocker.toString()) {
+    const tokenLockerAddress = Address.fromString(pair!.tokenLocker);
+    let tokenLocker = TokenLocker.bind(tokenLockerAddress)
     let lockerLockBalance = createLiquidityLock(event.address, to)
     lockerLockBalance.balance = convertTokenToDecimal(pairContract.balanceOf(to), BI_18)
-    lockerLockBalance.lastBlockUpdate = event.block.number
-    lockerLockBalance.lastTimestampUpdate = event.block.timestamp
     lockerLockBalance.save()
     let userLockBalance = createLiquidityLock(event.address, from)
     userLockBalance.balance = convertTokenToDecimal(tokenLocker.userBalance(from), BI_18)
-    userLockBalance.lastBlockUpdate = event.block.number
-    userLockBalance.lastTimestampUpdate = event.block.timestamp
     userLockBalance.save()
   }
 

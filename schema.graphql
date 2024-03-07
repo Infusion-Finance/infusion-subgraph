@@ -101,6 +101,7 @@ type Pair @entity {
   tokenLocker: String!
   feeDistributor: String!
   lockerFeesP: BigDecimal!
+  userLocks: [UserLockBalance!] @derivedFrom(field: "pair")
 }
 
 type User @entity {
@@ -137,11 +138,9 @@ type LiquidityPositionSnapshot @entity {
 # current user total locked balance at pair token locker.
 type UserLockBalance @entity {
   id: ID!
-  pair: String!
+  pair: Pair!
   user: User!
   balance: BigDecimal!
-  lastBlockUpdate: BigInt!
-  lastTimestampUpdate: BigInt!
 }
 
 type Transaction @entity {
