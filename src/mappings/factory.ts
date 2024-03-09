@@ -110,6 +110,7 @@ export function handleNewPair(event: PairCreated): void {
     pair.tokenLocker = ADDRESS_ZERO
     pair.feeDistributor = ADDRESS_ZERO
     pair.lockerFeesP = ZERO_BD
+    pair.maxLockDays = ZERO_BI
     PairTemplate.create(event.params.pair);
   } else {
     pair.token0 = token0.id

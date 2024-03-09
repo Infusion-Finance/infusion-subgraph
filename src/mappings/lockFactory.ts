@@ -1,6 +1,7 @@
 /* eslint-disable prefer-const */
 import { BigInt, log } from '@graphprotocol/graph-ts'
 import { LockCreated } from '../types/LockFactory/LockFactory'
+import { TokenLocker } from '../types/templates/Pair/TokenLocker'
 import { Pair } from '../types/schema'
 import { Pair as PairTemplate } from '../types/templates'
 import {
@@ -35,12 +36,16 @@ export function handlePairLockCreated(event: LockCreated): void {
     pair.token1Price = ZERO_BD
     pair.tokenLocker = event.params.tokenLocker.toHexString()
     pair.feeDistributor = event.params.feeDistributor.toHexString()
+    const tokenLocker = TokenLocker.bind(event.params.tokenLocker);
     pair.lockerFeesP = convertTokenToDecimal(event.params.lockerFeesP, BigInt.fromI32(2))
-    PairTemplate.create(event.params.pair);
+    pair.maxLockDays = tokenLocker.MAX_LOCK_DAYS()
+    PairTemplate.create(event.params.pair)
   } else {
     pair.tokenLocker = event.params.tokenLocker.toHexString()
     pair.feeDistributor = event.params.feeDistributor.toHexString()
     pair.lockerFeesP = convertTokenToDecimal(event.params.lockerFeesP, BigInt.fromI32(2))
+    const tokenLocker = TokenLocker.bind(event.params.tokenLocker)
+    pair.maxLockDays = tokenLocker.MAX_LOCK_DAYS()
   }
   
   pair.save()

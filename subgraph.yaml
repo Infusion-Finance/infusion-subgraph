@@ -48,6 +48,8 @@ dataSources:
       abis:
         - name: LockFactory
           file: ./abis/lockFactory.json
+        - name: TokenLocker
+          file: ./abis/tokenLocker.json
       eventHandlers:
         - event: LockCreated(indexed address,indexed address,indexed address,uint256)
           handler: handlePairLockCreated
