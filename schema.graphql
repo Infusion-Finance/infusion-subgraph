@@ -101,7 +101,7 @@ type Pair @entity {
   tokenLocker: String!
   feeDistributor: String!
   lockerFeesP: BigDecimal!
-  userLocks: [UserLockBalance!] @derivedFrom(field: "pair")
+  userLocks: [UserLockBalance!]! @derivedFrom(field: "pair")
 }
 
 type User @entity {

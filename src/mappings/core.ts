@@ -220,7 +220,7 @@ export function handleTransfer(event: Transfer): void {
     createLiquiditySnapshot(toUserLiquidityPosition, event)
   }
 
-  if (pair!.tokenLocker !== ADDRESS_ZERO && from.toHexString() == pair!.tokenLocker.toString()) {
+  if (pair!.tokenLocker.toString() != ADDRESS_ZERO && from.toHexString() == pair!.tokenLocker.toString()) {
     const tokenLockerAddress = Address.fromString(pair!.tokenLocker);
     let tokenLocker = TokenLocker.bind(tokenLockerAddress)
     let lockerLockBalance = createLiquidityLock(event.address, from)
@@ -231,7 +231,7 @@ export function handleTransfer(event: Transfer): void {
     userLockBalance.save()
   }
 
-  if (pair!.tokenLocker !== ADDRESS_ZERO && to.toHexString() == pair!.tokenLocker.toString()) {
+  if (pair!.tokenLocker.toString() != ADDRESS_ZERO && to.toHexString() == pair!.tokenLocker.toString()) {
     const tokenLockerAddress = Address.fromString(pair!.tokenLocker);
     let tokenLocker = TokenLocker.bind(tokenLockerAddress)
     let lockerLockBalance = createLiquidityLock(event.address, to)
