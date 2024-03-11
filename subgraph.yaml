@@ -8,9 +8,9 @@ dataSources:
     name: Factory
     network: base
     source:
-      address: '0x0f13974202750CF33BB6617F7fc432B92A279d9B'
+      address: '0x2D9A3a2bd6400eE28d770c7254cA840c82faf23f'
       abi: Factory
-      startBlock: 11396427
+      startBlock: 11704797
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -35,9 +35,9 @@ dataSources:
     name: LockFactory
     network: base 
     source:
-      address: '0x35250d8A663744292f4f61339d673A962f9304C0'
+      address: '0x2d259c6C1A7aCB410326Ca662a26Ca3fDDb890BA'
       abi: LockFactory
-      startBlock: 11396427
+      startBlock: 11704797
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
