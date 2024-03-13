@@ -22,6 +22,8 @@ export function updateDayData(event: ethereum.Event): DayData {
 
   dayData.totalLiquidityUSD = uniswap!.totalLiquidityUSD
   dayData.totalLiquidityETH = uniswap!.totalLiquidityETH
+  dayData.totalVolumeUSD = uniswap!.totalVolumeUSD
+  dayData.totalVolumeETH = uniswap!.totalVolumeETH
   dayData.txCount = uniswap!.txCount
   dayData.save()
 
