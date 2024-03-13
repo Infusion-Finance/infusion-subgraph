@@ -1,8 +1,8 @@
-# Velodrome Subgraph
+# Infusion Subgraph
 
 Forked from the Uniswap V2 subgraph.
 
-This subgraph dynamically tracks any pair created by the Velodrome factory. It tracks of the current state of Uniswap contracts, and contains derived stats for things like historical data and USD prices.
+This subgraph dynamically tracks any pair created by the Infusion factory. It tracks of the current state of Uniswap contracts, and contains derived stats for things like historical data and USD prices.
 
 - aggregated data across pairs and tokens,
 - data on individual pairs and tokens,

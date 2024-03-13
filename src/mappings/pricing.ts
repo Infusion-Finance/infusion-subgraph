@@ -4,23 +4,17 @@ import { BigDecimal, Address, BigInt } from '@graphprotocol/graph-ts/index'
 import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from './helpers'
 
 const WETH_ADDRESS = '0x4200000000000000000000000000000000000006'
-const USDC_WETH_PAIR = '0xE5785876C34bf6575c90Eb75f58234Ba44ecf943' // created 10008355
-const USDC_WETH_PAIR_VOLATILE = '0xC59809d94B7E24F1053C9460cEd746e500921F5b' // created 10008355
+const USDC_WETH_PAIR_VOLATILE = '0x9f5fb8504edaddfb3ab502c75e9bde5fcd9ce3b1' // created 10008355
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
-  let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token0
   let usdcPairVolatile = Pair.load(USDC_WETH_PAIR_VOLATILE) // usdc is token0
 
   // all 3 have been created
-  if (usdcPair !== null) {
-    return usdcPair.token1Price
-  } else {
-    if (usdcPairVolatile !== null) {
-      return usdcPairVolatile.token1Price
-    }
-    return ZERO_BD
+  if (usdcPairVolatile !== null) {
+    return usdcPairVolatile.token1Price
   }
+  return ZERO_BD;
 }
 
 // token where amounts should contribute to tracked volume and liquidity
