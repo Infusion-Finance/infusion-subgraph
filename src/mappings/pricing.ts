@@ -12,7 +12,7 @@ export function getEthPriceInUSD(): BigDecimal {
 
   // all 3 have been created
   if (usdcPairVolatile !== null) {
-    return usdcPairVolatile.token0Price
+    return usdcPairVolatile.token1Price
   }
   return ZERO_BD;
 }
