@@ -8,7 +8,7 @@ dataSources:
     name: Factory
     network: base
     source:
-      address: '0x2D9A3a2bd6400eE28d770c7254cA840c82faf23f'
+      address: '0x2d9a3a2bd6400ee28d770c7254ca840c82faf23f'
       abi: Factory
       startBlock: 11704797
     mapping:
@@ -35,7 +35,7 @@ dataSources:
     name: LockFactory
     network: base 
     source:
-      address: '0x2d259c6C1A7aCB410326Ca662a26Ca3fDDb890BA'
+      address: '0x2d259c6c1a7acb410326ca662a26ca3fddb890ba'
       abi: LockFactory
       startBlock: 11704797
     mapping:
