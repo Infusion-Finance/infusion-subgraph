@@ -1,4 +1,4 @@
-/* eslint-disable prefer-const */
+  /* eslint-disable prefer-const */
 import { BigDecimal, BigInt, ethereum } from '@graphprotocol/graph-ts'
 import { Bundle, Pair, PairDayData, Token, TokenDayData, DayData, Factory } from '../types/schema'
 import { PairHourData } from './../types/schema'
