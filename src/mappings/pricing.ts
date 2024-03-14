@@ -68,6 +68,18 @@ export function findEthPerToken(token: Token): BigDecimal {
         return pair!.token0Price.times(token0!.derivedETH as BigDecimal) // return token0 per our token * ETH per token 0
       }
     }
+    pairAddress = factoryContract.getPair(Address.fromString(token.id), Address.fromString(WHITELIST[i]), true)
+    if (pairAddress.toHexString() != ADDRESS_ZERO) {
+      let pair = Pair.load(pairAddress.toHexString())
+      if (pair!.token0 == token.id) {
+        let token1 = Token.load(pair!.token1)
+        return pair!.token1Price.times(token1!.derivedETH as BigDecimal) // return token1 per our token * Eth per token 1
+      }
+      if (pair!.token1 == token.id) {
+        let token0 = Token.load(pair!.token0)
+        return pair!.token0Price.times(token0!.derivedETH as BigDecimal) // return token0 per our token * ETH per token 0
+      }
+    }
   }
   return ZERO_BD // nothing was found return 0
 }
